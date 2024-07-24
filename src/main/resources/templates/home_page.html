@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <style>
+        .container {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 14px;
+            background-color: rgba(255, 221, 147, 0.938);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .navbar {
+            text-align: center;
+            border: 2px solid rgb(214, 119, 51);
+            border-radius: 14px;
+            box-shadow: 14px 14px 59px yellow;
+            color: rgb(218, 28, 28);
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 2px solid rgb(214, 119, 51);
+            border-radius: 14px;
+            padding: 23px;
+            text-align: center;
+        }
+         tbody tr:hover {
+            background-color: rgb(255, 240, 200);
+        }
+        th:hover {
+            background-color: rgb(214, 119, 51);
+            font-size: large;
+        }
+        tbody tr:hover {
+            background-color: rgb(255, 240, 200);
+        }
+        div > a {
+            position: absolute;
+            top: 9%;
+            right: 6%;
+            color: white;
+            background-color: blue;
+            padding: 5px;
+            border: 2px solid cyan;
+            border-radius: 3px;
+        }
+        button {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #del {
+            background-color: red;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination div {
+            margin: 0 5px;
+        }
+        .pagination a {
+            color: blue;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="navbar">
+        <h1>Employee Details</h1>
+        <a href="/ShowNewEmployeeForm"><button>Add Employee</button></a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th><a th:href = "@{'/page/' + ${currentpage} + '?sortField=firstname&sortDir=' + ${reverseSortDir}}">Employee - First Name</a></th>
+            <th><a th:href = "@{'/page/' + ${currentpage} + '?sortField=lastname&sortDir=' + ${reverseSortDir}}">Employee - Last Name</a></th>
+            <th><a th:href = "@{'/page/' + ${currentpage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">Employee - email</a></th>
+            <th>Employee - Age</th>
+            <th>Actions - Required</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${listEmployees}">
+            <td th:text="${employee.firstname}"></td>
+            <td th:text="${employee.lastname}"></td>
+            <td th:text="${employee.email}"></td>
+            <td th:text="${employee.age}"></td>
+            <td>
+                <a th:href="@{/ShowFormUpdate/{id}(id=${employee.id})}"><button>Update</button></a>
+                <a th:href="@{/DeleteEmployee/{id}(id=${employee.id})}"><button id="del">Delete</button></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${totalpages > 1}" class="pagination">
+        <div>
+            Total Rows: [[${totalitems}]]
+        </div>
+        <div>
+            <span th:each="i : ${#numbers.sequence(1, totalpages)}">
+                <a th:if="${currentpage != i}" th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                <span th:unless="${currentpage != i}">[[${i}]]</span>
+            </span>
+        </div>
+        <div>
+            <span>
+            <a th:if="${currentpage < totalpages}" th:href="@{'/page/' + ${currentpage + 1}   + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+            <span th:unless="${currentpage < totalpages}">Next</span>
+            </span>
+        </div>
+        <div>
+            <span>
+            <a th:if="${currentpage < totalpages}" th:href="@{'/page/' + ${totalpages}  + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+            <span th:unless="${currentpage < totalpages}">Last</span>
+            </span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

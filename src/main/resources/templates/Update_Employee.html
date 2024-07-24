@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            animation-name: myanimation1;
+            animation-duration: 5s;
+        }
+
+        h2 {
+            color: #666;
+            animation-name: myanimation2;
+            animation-duration:2s;
+            animation-iteration-count: infinite;
+        }
+
+        div{
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 14px 14px 35px tomato;
+            width: 400px;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+        }
+
+        input[type="text"] , input[type="email"] , input[type="number"]{
+            padding: 10px;
+            margin: 10px 0px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+             padding: 10px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+}
+
+            button:hover {
+               background-color: #218838;
+            }
+
+        @keyframes myanimation1 {
+            from{
+                transform: translateX(100%);
+            }
+            to{
+                transform: translateX(0%);
+            }
+        }
+
+        @keyframes myanimation2{
+            from{
+                box-shadow: 14px 14px 35px #333;
+            }
+            to{
+                box-shadow: 14px 14px 35px #666;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div>
+    <h1>Update Employee</h1>
+    <h2>Mention the changes</h2>
+    <form action="#" th:action="@{/SaveEmployee}" th:object="${employee}" method="POST">
+        <input type="hidden" th:field="*{id}">
+        <br>
+        <input type="text" th:field="*{firstname}" placeholder="Employee First Name">
+        <br>
+        <input type="text" th:field="*{lastname}" placeholder="Employee Last Name">
+        <br>
+        <input type="text" th:field="*{email}" placeholder="Employee email">
+        <br>
+        <input type="text" th:field="*{age}" placeholder="Employee Age">
+        <br>
+        <button type="submit">Save Employee</button>
+    </form>
+</div>
+</body>
+</html>

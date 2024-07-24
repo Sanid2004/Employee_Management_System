@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New Employee Form</title>
+    <style>
+        body {
+            animation-name: myanimation;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            height: 50px;
+            box-shadow: 4px 4px 20px rgba(236, 137, 44, 0.1);
+            padding-top: 10px;
+            margin: 0;
+        }
+        h2 {
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 15px 0;
+            width: calc(100% - 44px);
+            box-sizing: border-box;
+        }
+        button {
+            margin: 20px 0;
+            padding: 10px 20px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input:hover {
+            border-color: #4CAF50;
+        }
+        @keyframes myanimation {
+            from {
+                background-color: #f0f8ff;
+            }
+            to {
+                background-color: #e6f7ff;
+            }
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>Add Employee</h1>
+    <hr>
+    <h2>Save Employee</h2>
+    <form action="#" th:action="@{/SaveEmployee}" th:object="${employee}" method="POST">
+        <input type="text" th:field="*{firstname}" placeholder="Employee First Name">
+        <br>
+        <input type="text" th:field="*{lastname}" placeholder="Employee Last Name">
+        <br>
+        <input type="text" th:field="*{email}" placeholder="Employee Email">
+        <br>
+        <input type="text" th:field="*{age}" placeholder="Employee Age">
+        <br>
+        <button type="submit">Update Employee</button>
+    </form>
+</div>
+</body>
+</html>
